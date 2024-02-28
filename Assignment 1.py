@@ -1,5 +1,5 @@
-from enum import Enum
-import random
+from enum import Enum #for enum
+import random  #for random
 
 # Define an Enum to represent different flavors of chocolate, each with unique attributes.
 class ChocolateFlavor(Enum):
@@ -11,6 +11,7 @@ class ChocolateFlavor(Enum):
 
 # Define a class to represent a Chocolate, including its weight, price, flavor, and ID.
 class Chocolate:
+""" class represnts chocloate"""
     def __init__(self, weight, price, flavor, id):
         self.weight = weight
         self.price = price
@@ -19,9 +20,10 @@ class Chocolate:
 
 # Define a class to represent a Student, identified by an ID.
 class Student:
-    def __init__(self, id):
+    "class represent students"
+    def __init__(self, id): #constructer used to  to initialize the attributes of the class.
         self.id = id
-        self.chocolate = None
+        self.chocolate = None # Initialize the chocolate attribute as None
 
 # Function to generate chocolates for students based on the number of students.
 def generate_chocolates_for_students(n):
@@ -96,99 +98,25 @@ def merge_sort(chocolates, attribute):
             j += 1
             k += 1
 
-
+# Assuming ChocolateFlavor, Chocolate, and Student classes are defined as provided earlier.
 # Define a binary search function to find a student holding a chocolate with a specified attribute (price or weight).
 def binary_search_students(students, target, attribute):
-    left = 0
+    left = 0 # Set the left and right pointers for binary search
     right = len(students) - 1
-
+    # Perform binary search while the left pointer is less than or equal to the right pointer
     while left <= right:
-        mid = (left + right) // 2
+        mid = (left + right) // 2 # Calculate the middle index
         # Access the attribute of the chocolate object, not the Student object
         current_attribute = getattr(students[mid].chocolate, attribute)
 
-        if current_attribute == target:
+        if current_attribute == target: # Check if the current attribute matches the target
             return students[mid]  # Return the found student
         elif current_attribute < target:
-            left = mid + 1
+            left = mid + 1 # Adjust the left pointer if the current attribute is less than the target
         else:
-            right = mid - 1
+            right = mid - 1 # Adjust the right pointer if the current attribute is greater than the target
 
     return None  # Return None if the target is not found
-
-
-
-# Example usage
-# Example usage
-n = 50  # Number of students
-
-if n <= 0:
-    print("No student available.")
-else:
-    # Initialize students and other operations here
-    students = [Student(f"Student{i}") for i in range(1, n + 1)]
-    chocolates = generate_chocolates_for_students(len(students))
-
-    # Distribute chocolates iteratively and recursively
-    distribution_iterative = distribute_chocolates_iteratively(chocolates, students)
-    distribution_recursive = distribute_chocolates_recursively(chocolates, students)
-
-    print("Iterative Distribution:")
-    for student_id, (chocolate_id, flavor, weight, price) in distribution_iterative.items():
-        print(f"Student: {student_id}, Chocolate ID: {chocolate_id}, Flavor: {flavor}, Weight: {weight} gm, Price: {price} AED")
-
-    print("\nRecursive Distribution:")
-    for student_id, (chocolate_id, flavor, weight, price) in distribution_recursive.items():
-        print(f"Student: {student_id}, Chocolate ID: {chocolate_id}, Flavor: {flavor}, Weight: {weight} gm, Price: {price} AED")
-
-
-    # Sort chocolates by weight
-    chocolates_by_weight = chocolates.copy()
-    merge_sort(chocolates_by_weight, 'weight')
-    print("\nChocolates sorted by weight:")
-    for chocolate in chocolates_by_weight:
-        print(f"Flavor: {chocolate.flavor.name}, Weight: {chocolate.weight} gm")
-
-    # Sort chocolates by price
-    chocolates_by_price = chocolates.copy()
-    merge_sort(chocolates_by_price, 'price')
-    print("\nChocolates sorted by price:")
-    for chocolate in chocolates_by_price:
-        print(f"Flavor: {chocolate.flavor.name},  Price: {chocolate.price} aed")
-
-        """binary APPORACH"""
-        # Assuming ChocolateFlavor, Chocolate, and Student classes are defined as provided earlier.
-        # Loop through the list of students and assign each a chocolate from the chocolates list.
-    # Assigning chocolates to students
-    for i in range(len(students)):
-        students[i].chocolate = chocolates[i]
-
-    # Defining target values and attributes for search
-    target_price = 11  # The target price you're searching for
-    attribute_price = 'price'  # Searching by 'price'
-
-    target_weight = 8  # The target weight you're searching for
-    attribute_weight = 'weight'  # Searching by 'weight'
-
-    # Performing binary search for price and weight
-    found_student_price = binary_search_students(students, target_price, attribute_price)
-    found_student_weight = binary_search_students(students, target_weight, attribute_weight)
-
-    # Printing results
-    print("\n")
-    if found_student_price:
-        print(f"Found a student holding a chocolate with {attribute_price}: {target_price} AED:")
-        print(f"Student: {found_student_price.id}, Chocolate ID: {found_student_price.chocolate.id}, "
-              f"Flavor: {found_student_price.chocolate.flavor.name}, Price: {found_student_price.chocolate.price} AED")
-    else:
-        print(f"No student found holding a chocolate with {attribute_price} {target_price} AED.")
-
-    if found_student_weight:
-        print(f"Found a student holding a chocolate with {attribute_weight}: {target_weight} gm:")
-        print(f"Student: {found_student_weight.id}, Chocolate ID: {found_student_weight.chocolate.id}, "
-              f"Flavor: {found_student_weight.chocolate.flavor.name}, Weight: {found_student_weight.chocolate.weight} gm")
-    else:
-        print(f"No student found holding a chocolate with {attribute_weight} {target_weight} gm.")
 
 
 
